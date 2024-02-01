@@ -18,6 +18,8 @@ To ensure the security of stored passwords, two levels of encryption are applied
 During password storage, AES-CBC (SHA-256) encryption is applied with a key stored only on the local device (by saving an MD5-encrypted cipher in a cookie) through JavaScript (using the Web Crypto API module). This encrypted information is then further encrypted during storage in the database using another protocol, AES-256-CBC, with the key stored on the server (randomly generated during the installation process).
 
 ## To do
+- [ ] import excel
+- [ ] chrome & firefox plugin
 
 ## Modules
 - Fat-Free Framework 3.8.2 (https://fatfreeframework.com)
