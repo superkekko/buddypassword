@@ -11,21 +11,19 @@ class api extends authentication {
 
 			if ($tokenType === 'Bearer' && !empty($token)) {
 				$user = $f3->get('DB')->exec("SELECT * FROM user where bearer=?", $token);
-				
-				if(!empty($user[0])){
-					$postData = json_decode(file_get_contents('php://input'), true);
 
-					if ($postData !== null) {
-						$result = $f3->get('DB')->exec("SELECT * FROM password WHERE link = ?", $postData['url']);
-						
-						$return_array=['data'=> array('list'=>$result[0]['list'],'tags'=>$result[0]['tags'])];
-						header('Content-Type: application/json');
-						echo json_encode($return_array);
-					} else {
-						$return_array=['data'=> array('list'=>'','tags'=>'')];
-						header('Content-Type: application/json');
-						echo json_encode($return_array);
+				if (!empty($user[0])) {
+					//$postData = json_decode(file_get_contents('php://input'), true);
+					$results = $f3->get('DB')->exec("SELECT * FROM password where user_ins = ? or (group_id = ? and share = ?)", array($user[0]['user_id'], $user[0]['group_id'], 1));
+					$allitem = [];
+					foreach ($results as $result) {
+						$result['link'] = str_replace(".", "", $result['link']);
+						$result['password'] = $this->encriptDecript($f3, $result['password'], 'd');
+						$allitem[] = $result;
 					}
+
+					header('Content-Type: application/json');
+					echo json_encode($allitem);
 				}
 			} else {
 				header('Content-Type: application/json');
@@ -35,5 +33,5 @@ class api extends authentication {
 			header('Content-Type: application/json');
 			http_response_code(400);
 		}
-	}	
+	}
 }

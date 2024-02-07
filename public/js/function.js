@@ -124,12 +124,3 @@ function getCookie(name) {
         }
      }
 }
-
-//check if pwa is already installed
-function pwaInstalled(){
-	if(('standalone' in window.navigator) && (window.navigator.standalone)){
-		return true
-	}else{
-		return false
-	}
-}
