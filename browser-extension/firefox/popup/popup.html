@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>BuddyPassword</title>
+	<link rel="stylesheet" type="text/css" href="popup.css">
+	<script src="list.min.js"></script>
+	<script src="hashes.min.js"></script>
+	<script src="encrypt-function.js"></script>
+	<script src="popup.js"></script>
+</head>
+
+<body>
+	<h2>Read password from the cloud</h2>
+	<div id="passwordList">
+		<table>
+			<tr style="border-bottom: 0px !important">
+				<td colspan="2"><input type="text" name="search" class="search" placeholder="Search" style="width: 100%;"></td>
+			</tr>
+			<tr>
+				<td><input type="password" id="main-password" placeholder="Insert main password"></input></td>
+				<td><button type="button" class="button-green" id="opendb">Open</button></td>
+			</tr>
+		</table>
+		<table>
+			<tbody class="list">
+			</tbody>
+		</table>
+	</div>
+	<div id="loader" class="hidden"></div>
+	<div id="statusMessage" style="margin-top: 1em;"></div>
+</body>
+
+</html>
