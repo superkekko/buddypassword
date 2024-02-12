@@ -69,7 +69,7 @@ class privatepages extends authentication {
 		$current_user = $f3->get('active_user');
 		$id = $f3->get('PARAMS.id');
 
-		$results = $f3->get('DB')->exec("SELECT * FROM password where (user_upd = ? or (group_id = ? and share = ?)) and list = ?", array($current_user['user_id'], $id));
+		$results = $f3->get('DB')->exec("SELECT * FROM password where (user_upd = ? or (group_id = ? and share = ?)) and list = ?", array($current_user['user_id'], $current_user['group_id'], 1, $id));
 		$allitem = [];
 		foreach ($results as $result) {
 			$result['password'] = $this->encriptDecript($f3, $result['password'], 'd');
@@ -102,7 +102,7 @@ class privatepages extends authentication {
 		$current_user = $f3->get('active_user');
 		$id = $f3->get('PARAMS.id');
 
-		$results = $f3->get('DB')->exec("SELECT * FROM password t where (user_upd = ? or (group_id = ? and share = ?)) and (',' || t.tags || ',') LIKE ?", array($current_user['user_id'], '%,'.$id.',%'));
+		$results = $f3->get('DB')->exec("SELECT * FROM password t where (user_upd = ? or (group_id = ? and share = ?)) and (',' || t.tags || ',') LIKE ?", array($current_user['user_id'], $current_user['group_id'], 1, '%,'.$id.',%'));
 		$allitem = [];
 		foreach ($results as $result) {
 			$result['password'] = $this->encriptDecript($f3, $result['password'], 'd');
