@@ -70,8 +70,12 @@ class privatepages extends authentication {
 		$id = $f3->get('PARAMS.id');
 
 		$results = $f3->get('DB')->exec("SELECT * FROM password where (user_upd = ? or (group_id = ? and share = ?)) and list = ?", array($current_user['user_id'], $id));
-
-		$f3->set('list', $results);
+		$allitem = [];
+		foreach ($results as $result) {
+			$result['password'] = $this->encriptDecript($f3, $result['password'], 'd');
+			$allitem[] = $result;
+		}
+		$f3->set('password', $allitem);
 		$f3->set('content', 'private-item.html');
 	}
 
@@ -99,8 +103,12 @@ class privatepages extends authentication {
 		$id = $f3->get('PARAMS.id');
 
 		$results = $f3->get('DB')->exec("SELECT * FROM password t where (user_upd = ? or (group_id = ? and share = ?)) and (',' || t.tags || ',') LIKE ?", array($current_user['user_id'], '%,'.$id.',%'));
-
-		$f3->set('list', $results);
+		$allitem = [];
+		foreach ($results as $result) {
+			$result['password'] = $this->encriptDecript($f3, $result['password'], 'd');
+			$allitem[] = $result;
+		}
+		$f3->set('password', $allitem);
 		$f3->set('content', 'private-item.html');
 	}
 
