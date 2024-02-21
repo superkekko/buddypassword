@@ -1,3 +1,0 @@
-# buddypassword - Cookie policy
-
-During password storage, AES-CBC (SHA-256) encryption is applied with a key stored only on the local device (by saving an MD5-encrypted cipher in a cookie) through JavaScript (using the Web Crypto API module). This cookie is needed only to save in you local machine the key to do the secon decription for the password and is readable only from the site where you put the code to be run.
